@@ -1,10 +1,9 @@
 import requests
-from pathlib import Path
-from src.config import RAW_DIR, CATALOG_COLUMNS
+from src.config import RAW_DIR, CATALOG_COLUMNS, CATALOG_FILE
 
 TAP_URL = "https://exoplanetarchive.ipac.caltech.edu/TAP/sync"
 
-OUT_FILE = RAW_DIR / "dr24_tce.csv"
+OUT_FILE = RAW_DIR / CATALOG_FILE
 params = {
     "query": f"select {', '.join(CATALOG_COLUMNS)} from q1_q17_dr24_tce",
     "format": "csv",
@@ -19,6 +18,8 @@ def download_catalog() -> None:
 
     print(response.url)
     print(response.status_code)  
+    print(f"Saved {OUT_FILE}")
 
 if __name__ == "__main__":
     download_catalog()
+

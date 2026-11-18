@@ -9,4 +9,12 @@ CATALOG_COLUMNS = ["kepid", "tce_plnt_num", "tce_period", "tce_time0bk",
                    "tce_duration", "av_training_set"]
 CATALOG_FILE = "dr24_TCE.csv"
 PROCESSED_FILE = "dr24_TCE_with_labels"
-LABEL_MAP = {"PC": 1, "AFP": 0, "NTP": 0}
+LABEL_MAP = {"PC": 1, "AFP": 0, "NTP": 0} 
+
+# Preprocessing settings (from Shallue & Vanderburg 2018, except MASK_WIDTH_FACTOR)
+GLOBAL_BINS = 2001
+LOCAL_BINS = 201
+LOCAL_NUM_DURATIONS = 4        # local view spans +/- 4 transit durations
+GAP_THRESHOLD_DAYS = 0.75
+MASK_WIDTH_FACTOR = 1.5        # our choice: mask 1.5x the duration when flattening
+RANDOM_SEED = 42
