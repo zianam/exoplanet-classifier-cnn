@@ -18,10 +18,21 @@ Run every command from the repo root with the virtual environment active.
 
 1. `python -m src.download_catalog`  downloads the DR24 TCE catalog to `data/raw/`
 2. `python -m src.labels`            builds `data/processed/tce_labels.csv`
+3. `python -m src.preprocess`  downloads and preprocesses the light curves for each TCE.
+
+
 
 Expected after step 2: 15,737 labeled TCEs (3,600 PC, 9,596 AFP, 2,541 NTP),
 i.e. 3,600 with `label` = 1 and 12,137 with `label` = 0.
-Catalog downloaded on: _fill in the date_ (the archive can update its tables).
+
+Preprocessing: Each TCE is processed independently using its host star's original light curve. The pipeline:
+Downloads and caches the original light curve for each star, reusing it when processing additional TCEs from that star.
+
+Masks the expected transit regions using the TCE's period, duration, and epoch.
+Flattens the light curve to remove long-term brightness trends while protecting the expected transits.
+Folds the flattened light curve using the TCE's period and epoch, aligning repeated transits into one cycle.
+Saves the resulting folded light curve as a FITS file and its processing parameters as a JSON metadata file.
+Each TCE therefore produces its own folded light curve, even when multiple TCEs belong to the same star.
 
 ## Layout
 
@@ -39,6 +50,7 @@ data/                  not committed; created by the scripts
 
 `tce_period` is in days, `tce_time0bk` is in BKJD, and `tce_duration` is in
 **hours** (divide by 24 before using it with times in days).
+ `tce_duration` is in hours and must be divided by 24 before using it with times in days.
 
 ## Deviations from the paper
 
