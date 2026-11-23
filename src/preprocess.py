@@ -104,7 +104,7 @@ def fold_tce(row, force_process=False):
 
 def preprocess_catalog():
     tce_data = pd.read_csv(PROCESSED_DIR / PROCESSED_FILE)
-    tce_data = tce_data.head(50)
+    tce_data = tce_data.iloc[50:100]
     print(f"Starting preprocessing for {len(tce_data)} TCEs...")
 
     successful = 0
