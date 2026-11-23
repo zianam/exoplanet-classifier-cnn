@@ -220,3 +220,5 @@ __marimo__/
 .streamlit/secrets.toml
 dr24_TCE_with_labels
 dr24_TCE_with_labels
+data/processed/folded_light_curves/
+data/raw/light_curves/
